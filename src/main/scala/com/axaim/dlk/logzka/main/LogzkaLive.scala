@@ -1,5 +1,7 @@
 package com.axaim.dlk.logzka.main
 
+import java.time.Duration
+import java.time.temporal.ChronoUnit
 import java.util
 
 import org.apache.kafka.clients.consumer.KafkaConsumer
@@ -24,7 +26,7 @@ object LogzkaLive extends App {
   consumer.subscribe(util.Collections.singletonList(TOPIC))
 
   while(true){
-    val records=consumer.poll(100)
+    val records=consumer.poll(Duration.of(1, ChronoUnit.DAYS))
     for (record<-records.asScala){
       println(record)
       println(record.value())
